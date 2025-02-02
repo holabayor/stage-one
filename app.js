@@ -1,8 +1,9 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 
-// Method to check if a number is prime
 const isPrime = (num) => {
   if (num < 2) return false;
   for (let i = 2; i < num; i++) {
@@ -11,7 +12,6 @@ const isPrime = (num) => {
   return true;
 };
 
-// Method to check if a number is perfect
 const isPerfect = (num) => {
   let sum = 0;
   for (let i = 1; i < num; i++) {
@@ -20,7 +20,6 @@ const isPerfect = (num) => {
   return sum === num;
 };
 
-// Method to calculate the sum of digits of a number
 const digitSum = (num) => {
   return num
     .toString()
@@ -28,7 +27,6 @@ const digitSum = (num) => {
     .reduce((acc, cur) => acc + parseInt(cur), 0);
 };
 
-// Method to calculate Armstrong number
 const isArmstrongNumber = (num) => {
   const length = num.toString().length;
 
@@ -49,6 +47,7 @@ const isArmstrongNumber = (num) => {
 
 app.get('/api/classify-number', (req, res) => {
   const { number } = req.query;
+
   // Check if number is not provided or is not a number
   if (!number || isNaN(number)) {
     return res.status(400).json({
@@ -66,7 +65,7 @@ app.get('/api/classify-number', (req, res) => {
   if (isArmstrongNumber(number)) properties.push('armstrong');
   number % 2 === 0 ? properties.push('even') : properties.push('odd');
 
-  console.log(isArmstrongNumber(number));
+  //   console.log(isArmstrongNumber(number));
 
   // Get fun fact from an external API
   return fetch(`http://numbersapi.com/${number}/math`)
