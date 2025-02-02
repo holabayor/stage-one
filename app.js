@@ -41,16 +41,6 @@ app.get('/api/classify-number', (req, res) => {
         digit_sum,
         fun_fact: data,
       });
-    })
-    .catch((err) => {
-      console.log('Error fetching fun fact', err);
-      res.status(200).json({
-        number,
-        is_prime,
-        is_perfect,
-        properties,
-        digit_sum,
-      });
     });
 });
 
