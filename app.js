@@ -14,7 +14,7 @@ app.get('/api/classify-number', (req, res) => {
   if (!number || isNaN(number)) {
     return res.status(400).json({
       error: 'true',
-      message: 'Please provide a valid number',
+      number: /^[a-zA-Z]+$/.test(number) ? 'alphabet' : 'special character',
     });
   }
 
