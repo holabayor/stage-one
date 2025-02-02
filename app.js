@@ -1,49 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const { isArmstrongNumber, isPrime, isPerfect, digitSum } = require('./utils');
 
 const app = express();
+const PORT = 3000;
+
 app.use(cors());
-
-const isPrime = (num) => {
-  if (num < 2) return false;
-  for (let i = 2; i < num; i++) {
-    if (num % i === 0) return false;
-  }
-  return true;
-};
-
-const isPerfect = (num) => {
-  let sum = 0;
-  for (let i = 1; i < num; i++) {
-    if (num % i === 0) sum += i;
-  }
-  return sum === num;
-};
-
-const digitSum = (num) => {
-  return num
-    .toString()
-    .split('')
-    .reduce((acc, cur) => acc + parseInt(cur), 0);
-};
-
-const isArmstrongNumber = (num) => {
-  const length = num.toString().length;
-
-  let sum = 0;
-  let temp = num;
-  while (temp > 0) {
-    let remainder = temp % 10;
-    sum += remainder ** length;
-    temp = parseInt(temp / 10);
-  }
-  console.log(sum);
-  if (sum === parseInt(num)) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 app.get('/api/classify-number', (req, res) => {
   const { number } = req.query;
@@ -93,13 +55,13 @@ app.get('/api/classify-number', (req, res) => {
 });
 
 // Catch all other routes and methods
-app.all('*', (req, res) => {
+app.all('*', (_, res) => {
   res.status(404).json({
     error: 'true',
     message: 'The requested route does not exist',
   });
 });
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
